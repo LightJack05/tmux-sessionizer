@@ -338,7 +338,8 @@ if [[ "$selected" =~ ^\[TMUX\]\ (.+)$ ]]; then
     selected="${BASH_REMATCH[1]}"
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+selected_name=$(echo "$selected" | sed "s@$HOME@@g; s@^\/@@g; s@\.@_@g")
+echo $selected_name
 
 if ! is_tmux_running; then
     tmux new-session -ds "$selected_name" -c "$selected"
