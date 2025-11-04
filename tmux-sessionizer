@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
-CONFIG_FILE_NAME="tmux-sessionizer.conf"
-CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/tmux-sessionizer"
+
+
+if [ -z "$CONFIG_FILE_NAME" ]; then
+    CONFIG_FILE_NAME="tmux-sessionizer.conf"
+fi
+
+if [ -z "$CONFIG_DIR" ]; then
+    CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/tmux-sessionizer"
+fi
+
+
 CONFIG_FILE="$CONFIG_DIR/$CONFIG_FILE_NAME"
 PANE_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/tmux-sessionizer"
 PANE_CACHE_FILE="$PANE_CACHE_DIR/panes.cache"
