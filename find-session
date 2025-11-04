@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+set -uo pipefail
+
+# List up the sessions
+sessions=$(tmux list-sessions -F "#{session_name}" 2>/dev/null)
+
+# Prompt for selection
+selected=$(echo "$sessions" | fzf --tmux --prompt="Select or create session: " --print-query)
+
+query=$(echo "$selected" | head -n1)
+match=$(echo "$selected" | tail -n1)
+
+session_name=${match:-$query}
+
+[ -z "$session_name" ] && echo "No input." && exit 1
+
+# Attach or create the new session
+if tmux has-session -t "$session_name" 2>/dev/null; then
+  tmux attach -t "$session_name"
+else
+  tmux new -s "$session_name"
+fi
+
