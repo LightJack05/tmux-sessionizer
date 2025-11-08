@@ -20,7 +20,7 @@ match=$(echo "$selected" | tail -n1)
 
 session_name=${match:-$query}
 
-[ -z "$session_name" ] && echo "No input." && exit 1
+[ -z "$session_name" ] && exit 0
 
 # Attach or create the new session
 if ! tmux has-session -t "$session_name" 2>/dev/null; then
