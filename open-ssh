@@ -13,7 +13,7 @@ switch_to() {
 hosts=$(cat ~/.ssh/config | grep "Host " | cut -d " " -f 2 | sort 2>/dev/null)
 
 # Prompt for selection
-selected=$(echo "$hosts" | fzf --tmux --prompt="Select or create session: ")
+selected=$(echo "$hosts" | fzf --tmux --prompt="Connect to remote host: ")
 
 [ -z "$selected" ] && exit 0
 
