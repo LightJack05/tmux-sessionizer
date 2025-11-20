@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+set -o pipefail
+
+switch_to() {
+    if [[ -z $TMUX ]]; then
+        tmux attach-session -t "$1"
+    else
+        tmux switch-client -t "$1"
+    fi
+}
+
+# List up the sessions
+hosts=$(cat ~/.ssh/config | grep "Host " | cut -d " " -f 2 | sort 2>/dev/null)
+
+# Prompt for selection
+selected=$(echo "$hosts" | fzf --tmux --prompt="Select or create session: ")
+
+[ -z "$selected" ] && exit 0
+
+selected_name=$(echo "$selected" | sed "s@^\/@@g; s@\.@_@g;")
+
+# Create the new session
+if ! tmux has-session -t "$selected_name" 2>/dev/null; then
+  tmux new -d -s "$selected_name" "ssh $selected"
+fi
+
+switch_to "$selected_name"
