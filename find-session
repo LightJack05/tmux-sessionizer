@@ -13,7 +13,7 @@ switch_to() {
 sessions=$(tmux list-sessions -F "#{session_name}" 2>/dev/null)
 
 # Prompt for selection
-selected=$(echo "$sessions" | fzf --tmux --prompt="Select or create session: " --print-query)
+selected=$(echo "$sessions" | fzf --tmux=center,100% --prompt="Select or create session: " --print-query)
 
 query=$(echo "$selected" | head -n1)
 match=$(echo "$selected" | tail -n1)
