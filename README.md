@@ -1,4 +1,8 @@
 ## tmux sessionizer
+
+> [!NOTE]
+> Development of this tool has moved to a local gitea instance: [https://gitea.lightjack.de/LightJack05](https://gitea.lightjack.de/LightJack05)
+
 its a script that does everything awesome at all times
 
 ## Requirements
